@@ -1,12 +1,41 @@
 from flask import Flask, request, jsonify
+from flasgger import Swagger
 import requests
 
 from config import TOKEN
 
+
 app = Flask(__name__)
+swagger = Swagger(app)
+
 
 @app.route("/create", methods=["POST"])
 def create_short_url():
+    """ Creating a short url with alias if provided, otherwise a random alias
+    will be generated
+    ---
+    parameters:
+      - name: url
+        type: string
+        in: body
+        example: "https://flask.palletsprojects.com/en/2.2.x/"
+        required: true
+      - name: alias
+        type: string
+        in: body
+        example: "flask2"
+        required: false
+    responses:
+      200:
+        description: Created short url will be returned
+        schema:
+            id: short_url
+            properties:
+                short_url:
+                    type: string
+                    description: The short url
+                    example: "https://tiny.one/flask2"
+    """
     # Get the url from the request body
     url = request.json.get("url")
     # Get the alias from the request body
