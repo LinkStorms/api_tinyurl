@@ -1,0 +1,112 @@
+Creating a short url with alias if provided, otherwise a random alias
+will be generated
+---
+parameters:
+  - name: url
+    type: string
+    in: body
+    example: "https://flask.palletsprojects.com/en/2.2.x/"
+    required: true
+  - name: token
+    type: string
+    in: body
+    example: "KfX1xzgntbZtRsyHb9eNgl8b4oJiLHCIdZlKymi5nRBk33R8UGSOVElZZGUT"
+    required: true
+  - name: alias
+    type: string
+    in: body
+    example: "flask2"
+    required: false
+responses:
+    200:
+        description: Created short url will be returned
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 200
+                data:
+                    type: object
+                    properties:
+                        short_url:
+                            type: string
+                            description: The short url
+                            example: "https://tiny.one/flask2"
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: []
+    401:
+        description: Not authorized to use to access this API endpoint or resource. Please check your API token
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 401
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: ["Unauthorized"]
+    405:
+        description: You do not have permission to access this resource
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 405
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: ["Method Not Allowed"]
+    422:
+        description: Validation failed on one of the properties, please check the errors in the response body.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 422
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: [
+                        "Invalid URL",
+                        "Alias field is too long"
+                    ]
+    5XX:
+        description: There was an unexpected error processing your request.
+        schema:
+            properties:
+                code:
+                    type: integer
+                    description: The status code
+                    example: 5XX
+                data:
+                    type: object
+                    example: {}
+                errors:
+                    type: array
+                    items:
+                        type: string
+                    description: The errors
+                    example: ["Something went wrong"]
