@@ -19,7 +19,7 @@ parameters:
     required: false
 responses:
     200:
-        description: Created short url will be returned
+        description: Successful operation. Created short url will be returned.
         schema:
             properties:
                 code:
