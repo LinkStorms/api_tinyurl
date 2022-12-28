@@ -26,8 +26,8 @@ def handle_exception(e):
 
 
 @app.route("/create", methods=["POST"])
-@swag_from("flasgger_docs/create_short_url.yml")
-def create_short_url():
+@swag_from("flasgger_docs/create_endpoint.yml")
+def create_endpoint():
     # Get the url from the request body
     url = request.json.get("url")
     # Get the alias from the request body
