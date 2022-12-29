@@ -2,21 +2,27 @@ Creating a short url with alias if provided, otherwise a random alias
 will be generated
 ---
 parameters:
-  - name: url
-    type: string
-    in: body
-    example: "https://flask.palletsprojects.com/en/2.2.x/"
-    required: true
-  - name: token
-    type: string
-    in: body
-    example: "KfX1xzgntbZtRsyHb9eNgl8b4oJiLHCIdZlKymi5nRBk33R8UGSOVElZZGUT"
-    required: true
-  - name: alias
-    type: string
-    in: body
-    example: "flask2"
-    required: false
+  - in: body
+    name: url
+    description: Long url to be shortened with TinyURL.
+    type: object
+    schema:
+        properties:
+            url:
+                type: string
+                in: body
+                example: "https://flask.palletsprojects.com/en/2.2.x/"
+                required: true
+            token:
+                type: string
+                in: body
+                example: "KfX1xzgntbZtRsyHb9eNgl8b4oJiLHCIdZlKymi5nRBk33R8UGSOVElZZGUT"
+                required: true
+            alias:
+                type: string
+                in: body
+                example: "flask2"
+                required: false
 responses:
     200:
         description: Successful operation. Created short url will be returned.
