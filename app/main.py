@@ -78,6 +78,22 @@ def delete_endpoint():
     alias = request.json.get("alias")
     # Get the token from the request body
     token = request.json.get("token")
+
+    errors = []
+    # Validate the token
+    try:
+        token_validation(token)
+    except ValueError as e:
+        errors.append(str(e))
+    # Validate the alias
+    try:
+        alias_validation(alias)
+    except ValueError as e:
+        errors.append(str(e))
+    # Return the errors if any
+    if errors:
+        return {"data": {}, "errors": errors, "code": 422}, 422
+
     # Delete the short url
     status_code, errors, code = delete_short_url(alias, token)
     # Return the response
