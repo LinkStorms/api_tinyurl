@@ -8,6 +8,10 @@ from validation import (
     token_validation,
     alias_validation
 )
+from settings import (
+    HOST,
+    PORT
+)
 
 
 BASE_URL = "https://api.tinyurl.com"
@@ -62,7 +66,7 @@ def create_endpoint():
     # Return the errors if any
     if errors:
         return {"data": {}, "errors": errors, "code": 422}, 422
-    
+
 
     status_code, short_url, errors, code = create_short_url(url, alias, token)
     # Return the short url
@@ -131,3 +135,7 @@ def delete_short_url(alias, token):
     json = response.json()
     status_code = response.status_code
     return status_code, json.get("errors", None), json.get("code")
+
+
+if __name__ == '__main__':
+    app.run(host=HOST, port=PORT, debug=True)
