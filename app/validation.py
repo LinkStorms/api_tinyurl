@@ -2,6 +2,7 @@ import validators
 
 from settings import (
     TOKEN_LENGTH_RANGE,
+    ALIAS_LENGTH_RANGE
 )
 
 
@@ -32,3 +33,17 @@ def token_validation(token, token_length_range=TOKEN_LENGTH_RANGE):
         raise ValueError(f"Token must be at least {min_length} characters long.")
     if len(token) > max_length:
         raise ValueError(f"Token must be less than {max_length} characters long.")
+
+
+def alias_validation(token_name, alias_length_range=ALIAS_LENGTH_RANGE):
+    """ Raises an exception if alias is not valid.
+    """
+    min_length, max_length = alias_length_range
+
+    if not token_name:
+        raise ValueError("Alias is required.")
+
+    if len(token_name) < min_length:
+        raise ValueError(f"Alias must be at least {min_length} characters long.")
+    if len(token_name) > max_length:
+        raise ValueError(f"Alias must be less than {max_length} characters long.")
