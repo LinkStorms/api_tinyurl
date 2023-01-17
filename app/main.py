@@ -13,11 +13,17 @@ from settings import (
     PORT
 )
 
+template = {
+    "info":{
+        "title": "TinyURL API",
+        "description": "TinyURL adapter service to shorten URLs"
+    }
+}
 
 BASE_URL = "https://api.tinyurl.com"
 
 app = Flask(__name__)
-swagger = Swagger(app)
+swagger = Swagger(app, template=template)
 
 
 @app.errorhandler(HTTPException)
